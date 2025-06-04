@@ -1,0 +1,56 @@
+<div class="wrapper">
+    <div class="menu-container">
+        <h3>Menu</h3>
+        <div class="search-wrapper">
+            <mat-form-field class="example-form-field">
+                <mat-label>Stadt</mat-label>
+                <input matInput type="text" [(ngModel)]="city">
+            </mat-form-field>
+
+            <mat-form-field class="example-form-field">
+                <mat-label>Stadtteil</mat-label>
+                <input matInput type="text" [(ngModel)]="district">
+            </mat-form-field>
+            <button matSuffix matIconButton (click)="submit()"><mat-icon>search</mat-icon></button>
+        </div>
+        <p>Anzahl Pizzaläden:
+        @if(overpass.pizzaPlacesLoaded()){
+            {{overpass.numberOfPizzaPlaces()??"Fehlerhafte Anfrage"}}
+            } @else {
+                <div style="display: inline-block; padding-left: 4px;"><mat-spinner [diameter]="14"></mat-spinner></div>
+            }
+            </p>
+    </div>
+    <div class="map-container">
+        <h3>Ergebnisse</h3>
+        <div style="margin: 16px 0">
+            <mat-button-toggle-group (change)="changeLayout($event)" name="fontStyle" aria-label="View Style">
+                <mat-button-toggle value="list" checked="true"><mat-icon>list</mat-icon></mat-button-toggle>
+                <mat-button-toggle value="grid"><mat-icon>grid_view</mat-icon></mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        @if(overpass.pizzaPlacesLoaded()){
+            @if(layout() == "list"){
+                <mat-accordion>
+                    @for (pizzaPlace of overpass.pizzaPlaces(); track $index) {
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title> {{pizzaPlace.name??"-"}} </mat-panel-title>
+                                <mat-panel-description> {{pizzaPlace.cuisine??"-"}} </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <p> Id: {{pizzaPlace.id??"-"}} </p>
+                            <p> Longitude: {{pizzaPlace.lon??"-"}} </p>
+                            <p> Latitude: {{pizzaPlace.lat??"-"}} </p>
+                      
+                        </mat-expansion-panel>
+                    }
+                </mat-accordion>
+            } 
+        } @else {
+        <mat-spinner></mat-spinner>
+        }
+        <div>
+
+        </div>
+    </div>
+</div>
