@@ -8,6 +8,7 @@ import { OverpassService } from '../overpass-service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
+import { MatToolbar } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-main',
@@ -24,7 +25,8 @@ import { MatAccordion, MatExpansionPanel, MatExpansionPanelDescription, MatExpan
     MatExpansionPanel,
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
-    MatExpansionPanelDescription
+    MatExpansionPanelDescription,
+    MatToolbar
     
   ],
   templateUrl: './main.html',

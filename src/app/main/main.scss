@@ -5,9 +5,11 @@
 }
 .menu-container{
     height: 100%;
-    padding: 16px;
-    width: 39vw;
-    border-right: solid 1px #555;
+    padding: 0 16px;
+    width: fit-content;
+    // border-right: solid 1px var(--mat-sys-outline);
+    background-color: var(--mat-sys-surface-dim);
+    border-radius: 8px;
 }
 
 .search-wrapper > *{
@@ -15,7 +17,13 @@
 }
 
 .map-container{
-    width: 61vw;
-    padding: 16px;
-    overflow: scroll;
+    min-width: 61vw;
+    height: 100%;
+    padding: 0 16px;
+    overflow: auto;
+    flex-grow: 1;
+    background-color: var(--mat-sys-surface);
+}
+.spacer{
+    flex: 1 1 auto;
 }

@@ -22,13 +22,17 @@
             </p>
     </div>
     <div class="map-container">
-        <h3>Ergebnisse</h3>
-        <div style="margin: 16px 0">
-            <mat-button-toggle-group (change)="changeLayout($event)" name="fontStyle" aria-label="View Style">
-                <mat-button-toggle value="list" checked="true"><mat-icon>list</mat-icon></mat-button-toggle>
-                <mat-button-toggle value="grid"><mat-icon>grid_view</mat-icon></mat-button-toggle>
-            </mat-button-toggle-group>
-        </div>
+        <mat-toolbar>
+            <span>Ergebnisse</span>
+            <span class="spacer"></span>
+            <div style="margin: 16px 0">
+                <mat-button-toggle-group (change)="changeLayout($event)" name="fontStyle" aria-label="View Style">
+                    <mat-button-toggle value="list" checked="true"><mat-icon>list</mat-icon></mat-button-toggle>
+                    <mat-button-toggle value="grid"><mat-icon>grid_view</mat-icon></mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        </mat-toolbar>
+        
         @if(overpass.pizzaPlacesLoaded()){
             @if(layout() == "list"){
                 <mat-accordion>
