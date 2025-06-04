@@ -1,15 +1,33 @@
 <div class="wrapper">
     <div class="menu-container">
-        <h3>Menu</h3>
+        <div style=" height: var(--mat-toolbar-standard-height, 64px);"></div>
         <div class="search-wrapper">
             <mat-form-field class="example-form-field">
                 <mat-label>Stadt</mat-label>
-                <input matInput type="text" [(ngModel)]="city">
+                <input (blur)="cityInputChanged($event)" required matInput type="text" 
+                [matAutocomplete]="cityComplete"
+                [(ngModel)]="city"
+            >
+                <mat-autocomplete #cityComplete="matAutocomplete">
+                    @for (city of overpass.listOfCities(); track $index) {
+                        <mat-option [value]="city">
+                            {{city}}
+                        </mat-option>
+                    }
+                </mat-autocomplete>
             </mat-form-field>
 
-            <mat-form-field class="example-form-field">
+            <mat-form-field  class="example-form-field">
                 <mat-label>Stadtteil</mat-label>
-                <input matInput type="text" [(ngModel)]="district">
+                <input required matInput type="text"
+                [matAutocomplete]="districtComplete" [(ngModel)]="district">
+                <mat-autocomplete #districtComplete="matAutocomplete">
+                    @for (district of overpass.districtsByCity().get(city); track $index) {
+                    <mat-option [value]="district">
+                        {{district}}
+                    </mat-option>
+                    }
+                </mat-autocomplete>
             </mat-form-field>
             <button matSuffix matIconButton (click)="submit()"><mat-icon>search</mat-icon></button>
         </div>

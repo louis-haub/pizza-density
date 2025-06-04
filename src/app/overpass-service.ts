@@ -6,12 +6,11 @@ import { OverpassApiService, PizzaPlace } from './overpass-api-service';
 })
 export class OverpassService {
 
-  private _numberOfInhabitants: WritableSignal<number|undefined> = signal(NaN)
-  numberOfInhabitants = this._numberOfInhabitants.asReadonly()
-  
+  private _listOfCities: WritableSignal<string[]> = signal([...districtsByCity.keys()])
+  listOfCities = this._listOfCities.asReadonly()
 
-  private _numberOfInhabitantsLoaded: WritableSignal<boolean> = signal(true)
-  numberOfInhabitantsLoaded = this._numberOfInhabitantsLoaded.asReadonly()
+  private _districtsByCity: WritableSignal<Map<string, string[]>> = signal(districtsByCity)
+  districtsByCity = this._districtsByCity.asReadonly()
 
 
   private _pizzaPlaces: WritableSignal<PizzaPlace[]|undefined> = signal([])
@@ -36,7 +35,6 @@ export class OverpassService {
 
   updateCityAndDistrict(city: string, district: string){
     this.updatePizzaPlaces(city, district)
-    this.updateNumberOfInhabitants(city, district)
   }
 
   private updatePizzaPlaces(city: string, district: string){
@@ -46,11 +44,24 @@ export class OverpassService {
       this._pizzaPlacesLoaded.set(true)
     })
   }
-    private updateNumberOfInhabitants(city: string, district: string){
-    this._numberOfInhabitantsLoaded.set(false)
-    this.overpassApi.getNumberOfInhabitants(city, district).subscribe((numberOfInhabitants)=> {
-      this._numberOfInhabitants.set(numberOfInhabitants)
-    this._numberOfInhabitantsLoaded.set(true)
-    })
-  }
 }
+
+
+const districtsByCity = new Map([
+  ["Mainz", ["Altstadt", "Neustadt", "Oberstadt", "Bretzenheim","Drais","Ebersheim","Finthen","Gonsenheim","Hartenberg-Münchfeld","Hechtsheim","Laubenheim","Lerchenberg","Marienborn","Mombach","Weisenau"]], 
+  ["Frankfurt am Main", ["Innenstadt", "Sachsenhausen", "Bockenheim", "Bornheim", "Höchst", "Nordend", "Westend"]],
+  ["Wiesbaden", ["Mitte", "Nordost", "Südost", "Biebrich", "Dotzheim", "Schierstein"]],
+  ["Darmstadt", ["Mitte", "Bessungen", "Eberstadt", "Arheilgen", "Kranichstein"]],
+  ["Offenbach am Main", ["Kaiserlei", "Lauterborn", "Bieber", "Tempelsee", "Bürgel"]],
+  ["Hanau", ["Innenstadt", "Kesselstadt", "Großauheim", "Steinheim", "Lamboy"]],
+  ["Rüsselsheim am Main", ["Innenstadt", "Bauschheim", "Königstädten", "Dicker Busch"]],
+  ["Bad Homburg vor der Höhe", ["Gartenfeld", "Kirdorf", "Dornholzhausen", "Ober-Erlenbach"]],
+  ["Oberursel (Taunus)", ["Altstadt", "Bommersheim", "Stierstadt", "Weißkirchen"]],
+  ["Eschborn", ["Innenstadt", "Niederhöchstadt"]],
+  ["Maintal", ["Bischofsheim", "Dörnigheim", "Hochstadt", "Wachenbuchen"]],
+  ["Neu-Isenburg", ["Zentrum", "West", "Gravenbruch"]],
+  ["Hattersheim am Main", ["Hattersheim", "Okriftel", "Eddersheim"]],
+  ["Kelkheim (Taunus)", ["Mitte", "Horns", "Münster", "Fischbach", "Ruppertshain"]],
+  ["Hofheim am Taunus", ["Marxheim", "Langenhain", "Lorsbach", "Wallau", "Wildsachsen"]],
+  ["Rodgau", ["Jügesheim", "Weiskirchen", "Hainhausen", "Nieder-Roden", "Dudenhofen"]]
+])

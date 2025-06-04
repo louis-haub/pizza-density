@@ -12,29 +12,6 @@ export class OverpassApiService {
     
   ) {}
 
-
-  getNumberOfInhabitants(city: string, district: string){
-    const headers = new HttpHeaders({
-        'Content-Type': 'application/json'
-    })
-    const data = `
-    [out:json][timeout:60];
-    area[name="${city}"]->.city;
-    area[name="${district}"]->.district;
-
-
-    relation(area.district)(area.city)["type"="boundary"]["boundary"="administrative"];
-
-    out tags;
-    `;
-
-    const url = "https://overpass-api.de/api/interpreter?data=[out:json]"
-    const response = this.http.post<any>(url, data, {headers: headers})
-    response.subscribe(console.log)
-    return response
-  
-  }
-
   getPizzaPlaces(city: string, district: string): Observable<PizzaPlace[]|undefined>{
     const headers = new HttpHeaders({
         'Content-Type': 'application/json'

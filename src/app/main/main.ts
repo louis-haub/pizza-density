@@ -1,4 +1,4 @@
-import { Component, signal, WritableSignal } from '@angular/core';
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -9,6 +9,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 import { MatToolbar } from '@angular/material/toolbar';
+import { MatAutocomplete, MatAutocompleteModule, MatOption } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-main',
@@ -26,13 +27,16 @@ import { MatToolbar } from '@angular/material/toolbar';
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
     MatExpansionPanelDescription,
-    MatToolbar
+    MatToolbar,
+    MatAutocomplete,
+    MatOption,
+    MatAutocompleteModule
     
   ],
   templateUrl: './main.html',
   styleUrl: './main.scss'
 })
-export class Main {
+export class Main implements OnInit{
   city: string = "Frankfurt am Main";
   district: string = "Innenstadt";
   layout: WritableSignal<"list"|"grid"> = signal("list");
@@ -41,11 +45,23 @@ export class Main {
     protected overpass: OverpassService
   ){}
 
+  ngOnInit(): void {
+    this.overpass.updateCityAndDistrict(this.city, this.district)
+  }
+
   submit(){
     this.overpass.updateCityAndDistrict(this.city, this.district)
   }
 
   changeLayout(change: MatButtonToggleChange){
     console.log(change)
+  }
+  
+  cityInputChanged(event: any){
+    console.debug(this.city, event)
+  }
+
+  districtInputChanged(event: any){
+    console.debug(this.district, event)
   }
 }
