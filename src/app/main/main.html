@@ -67,7 +67,23 @@
                         </mat-expansion-panel>
                     }
                 </mat-accordion>
-            } 
+            } @else {
+                <div class="card-grid">
+                    @for (pizzaPlace of overpass.pizzaPlaces(); track $index) {
+                        <mat-card class="card">
+                            <mat-card-header>
+                                <mat-card-title>{{pizzaPlace.name}}</mat-card-title>
+                                <mat-card-subtitle>{{pizzaPlace.cuisine}}</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <p> Id: {{pizzaPlace.id??"-"}} </p>
+                                <p> Longitude: {{pizzaPlace.lon??"-"}} </p>
+                                <p> Latitude: {{pizzaPlace.lat??"-"}} </p>
+                            </mat-card-content>
+                        </mat-card>
+                    }
+                </div>
+            }
         } @else {
         <mat-spinner></mat-spinner>
         }

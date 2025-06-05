@@ -27,3 +27,14 @@
 .spacer{
     flex: 1 1 auto;
 }
+
+.card-grid{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.card-grid > *{
+    min-width: 20em;
+    margin: 8px;
+}

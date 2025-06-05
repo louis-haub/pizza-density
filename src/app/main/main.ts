@@ -10,6 +10,7 @@ import { MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup } from '@a
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatAutocomplete, MatAutocompleteModule, MatOption } from '@angular/material/autocomplete';
+import { MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
 
 @Component({
   selector: 'app-main',
@@ -30,7 +31,12 @@ import { MatAutocomplete, MatAutocompleteModule, MatOption } from '@angular/mate
     MatToolbar,
     MatAutocomplete,
     MatOption,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardSubtitle,
+    MatCardContent
     
   ],
   templateUrl: './main.html',
@@ -54,7 +60,7 @@ export class Main implements OnInit{
   }
 
   changeLayout(change: MatButtonToggleChange){
-    console.log(change)
+    this.layout.set(change.value)
   }
   
   cityInputChanged(event: any){
