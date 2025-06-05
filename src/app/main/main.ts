@@ -60,7 +60,6 @@ export class Main implements OnInit{
   }
 
   changeLayout(change: MatButtonToggleChange){
-    this.layout.set(change.value)
   }
   
   cityInputChanged(event: any){
